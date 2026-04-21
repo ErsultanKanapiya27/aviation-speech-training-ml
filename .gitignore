@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+
+venv/
+.env
+
+data/*
+!data/test.wav
+
+models/
+logs/
+
+.DS_Store
+.ipynb_checkpoints

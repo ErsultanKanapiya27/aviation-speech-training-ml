@@ -1,0 +1,6 @@
+openai-whisper
+torch
+numpy
+pandas
+pyyaml
+soundfile

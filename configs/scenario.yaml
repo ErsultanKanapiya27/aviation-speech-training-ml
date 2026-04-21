@@ -1,0 +1,18 @@
+scenario: atc_clearance
+
+steps:
+  - name: greeting
+    phrases:
+      - "cleared for takeoff"
+      - "you are cleared for takeoff"
+
+  - name: runway
+    phrases:
+      - "runway 2 7"
+      - "runway two seven"
+
+order_strict: true
+
+scoring:
+  missing_penalty: 0.3
+  order_penalty: 0.2
