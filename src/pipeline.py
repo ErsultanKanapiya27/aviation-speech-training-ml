@@ -1,25 +1,34 @@
 import argparse
+from scoring.scorer import load_config, score_text
+from utils.logger import log
+
 
 def fake_asr(audio_path):
     return "cleared for takeoff runway 27"
 
-def normalize(text):
-    return text.lower()
 
-def score(text):
-    if "cleared for takeoff" in text:
-        return 80
-    return 40
+def normalize(text):
+    return text.lower().strip()
+
 
 def main(audio, scenario):
-    print("Processing:", audio)
+    log(f"[INFO] Processing: {audio}")
 
+    config = load_config()
+
+    # ASR
     text = fake_asr(audio)
-    text = normalize(text)
-    result = score(text)
+    log(f"[ASR] Raw: {text}")
 
-    print("Recognized:", text)
-    print("Score:", result)
+    # Normalize
+    text = normalize(text)
+    log(f"[NORM] {text}")
+
+    # Score
+    score, errors = score_text(text, config)
+
+    log(f"[RESULT] Score: {score}")
+    log(f"[RESULT] Errors: {errors}")
 
 
 if __name__ == "__main__":
