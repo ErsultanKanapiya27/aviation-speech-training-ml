@@ -1,10 +1,9 @@
 import argparse
+
+from asr.whisper_asr import WhisperASR
 from scoring.scorer import load_config, score_text
-from utils.logger import log
-
-
-def fake_asr(audio_path):
-    return "cleared for takeoff runway 27"
+from utils.logger import log, Timer
+from metrics.cer import cer
 
 
 def normalize(text):
@@ -12,23 +11,39 @@ def normalize(text):
 
 
 def main(audio, scenario):
-    log(f"[INFO] Processing: {audio}")
+    total_timer = Timer()
+
+    log("INFO", f"Processing file: {audio}")
 
     config = load_config()
 
     # ASR
-    text = fake_asr(audio)
-    log(f"[ASR] Raw: {text}")
+    asr_timer = Timer()
+    asr = WhisperASR()
+    text = asr.transcribe(audio)
+    log("ASR", f"Text: {text}")
+    log("ASR", f"Time: {asr_timer.stop()} sec")
+
+    if not text:
+        log("ERROR", "Empty transcription")
+        return
 
     # Normalize
     text = normalize(text)
-    log(f"[NORM] {text}")
+    log("NORM", text)
 
     # Score
     score, errors = score_text(text, config)
 
-    log(f"[RESULT] Score: {score}")
-    log(f"[RESULT] Errors: {errors}")
+    # Fake reference (для демонстрации метрики)
+    reference = "cleared for takeoff runway 27"
+    error_rate = cer(reference, text)
+
+    log("RESULT", f"Score: {score}")
+    log("RESULT", f"Errors: {errors}")
+    log("METRIC", f"CER: {round(error_rate, 3)}")
+
+    log("TOTAL", f"Pipeline time: {total_timer.stop()} sec")
 
 
 if __name__ == "__main__":

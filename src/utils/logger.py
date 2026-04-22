@@ -1,5 +1,13 @@
-import datetime
+import time
 
-def log(message):
-    time = datetime.datetime.now().strftime("%H:%M:%S")
-    print(f"[{time}] {message}")
+
+class Timer:
+    def __init__(self):
+        self.start = time.time()
+
+    def stop(self):
+        return round(time.time() - self.start, 3)
+
+
+def log(stage, message):
+    print(f"[{stage}] {message}")
