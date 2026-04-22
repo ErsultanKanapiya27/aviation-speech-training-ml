@@ -32,3 +32,11 @@ Example output:
 
 [RESULT] Score: 70
 [RESULT] Errors: ['Missing step: greeting']
+
+## Future Work
+
+- Improve ASR accuracy and experiment with different models
+- Add more aviation scenarios (taxiing, landing, emergency)
+- Implement advanced metrics (WER, CER)
+- Add real-time microphone input
+- Develop web interface for interactive training
