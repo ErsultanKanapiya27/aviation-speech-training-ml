@@ -5,8 +5,9 @@ __pycache__/
 venv/
 .env
 
-data/*
-!data/test.wav
+data/
+!data/*.wav
+!data/*.m4a
 
 models/
 logs/
