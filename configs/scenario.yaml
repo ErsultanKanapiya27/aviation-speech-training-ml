@@ -10,6 +10,7 @@ steps:
     phrases:
       - "runway 2 7"
       - "runway two seven"
+      - "runway 27"
 
 order_strict: true
 

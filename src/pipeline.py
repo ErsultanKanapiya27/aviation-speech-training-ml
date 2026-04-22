@@ -4,10 +4,12 @@ from asr.whisper_asr import WhisperASR
 from scoring.scorer import load_config, score_text
 from utils.logger import log, Timer
 from metrics.cer import cer
-
+import re
 
 def normalize(text):
-    return text.lower().strip()
+    text = text.lower()
+    text = re.sub(r"[^\w\s]", "", text)
+    return text.strip()
 
 
 def main(audio, scenario):
